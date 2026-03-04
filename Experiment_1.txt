@@ -1,0 +1,127 @@
+1) Create a table st_info with attributes prn, name, m1, m2, m3.
+
+SQL> create table st_info(prn int, name varchar2(20), m1 number, m2 number, m3 number);
+
+Table created.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+ST_INFO                        TABLE
+
+SQL> select * from st_info;
+
+no rows selected
+
+SQL> desc st_info;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRN                                                NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ M1                                                 NUMBER
+ M2                                                 NUMBER
+ M3                                                 NUMBER
+
+2) Insert at least 10 rows in the table
+
+SQL> insert into st_info values (101, 'Arya', 80, 76, 58);
+
+1 row created.
+
+SQL> insert into st_info values (102, 'Aryan', 85, 46, 88);
+
+1 row created.
+
+SQL> insert into st_info values (103, 'Ayush', 78, 52, 45);
+
+1 row created.
+
+SQL> insert into st_info values (104, 'Diya', 56, 86, 66);
+
+1 row created.
+
+SQL> insert into st_info values (105, 'Siya', 69, 45, 96);
+
+1 row created.
+
+SQL> insert into st_info values (106, 'Riya', 63, 75, 68);
+
+1 row created.
+
+SQL> insert into st_info values (107, 'Raj', 66, 42, 86);
+
+1 row created.
+
+SQL> insert into st_info values (108, 'Mahi', 55, 77, 44);
+
+1 row created.
+
+SQL> insert into st_info values (109, 'Mahesh', 62, 43, 38);
+
+1 row created.
+
+SQL> insert into st_info values (110, 'Neeru', 79, 63, 81);
+
+1 row created.
+
+SQL> set linesize 150
+SQL> select * from st_info;
+
+       PRN NAME                         M1         M2         M3
+---------- -------------------- ---------- ---------- ----------
+       101 Arya                         80         76         58
+       102 Aryan                        85         46         88
+       103 Ayush                        78         52         45
+       104 Diya                         56         86         66
+       105 Siya                         69         45         96
+       106 Riya                         63         75         68
+       107 Raj                          66         42         86
+       108 Mahi                         55         77         44
+       109 Mahesh                       62         43         38
+       110 Neeru                        79         63         81
+
+10 rows selected.
+
+3) Add attribute total and perc to the table.
+
+SQL> alter table st_info add total number;
+
+Table altered.
+
+SQL> alter table st_info add perc number;
+
+Table altered.
+
+4) Calculate total & perc.
+
+SQL> update st_info set total = m1+m2+m3;
+
+10 rows updated.
+
+SQL> update st_info set perc = (total/300)*100;
+
+10 rows updated.
+
+SQL> select * from st_info;
+
+       PRN NAME                         M1         M2         M3      TOTAL       PERC
+---------- -------------------- ---------- ---------- ---------- ---------- ----------
+       101 Arya                         80         76         58        214 71.3333333
+       102 Aryan                        85         46         88        219         73
+       103 Ayush                        78         52         45        175 58.3333333
+       104 Diya                         56         86         66        208 69.3333333
+       105 Siya                         69         45         96        210         70
+       106 Riya                         63         75         68        206 68.6666667
+       107 Raj                          66         42         86        194 64.6666667
+       108 Mahi                         55         77         44        176 58.6666667
+       109 Mahesh                       62         43         38        143 47.6666667
+       110 Neeru                        79         63         81        223 74.3333333
+
+10 rows selected.
+
+5) Add primary key.
+
+SQL> alter table st_info modify prn int primary key;
+
+SQL> desc st_info;
