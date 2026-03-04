@@ -1,0 +1,442 @@
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_ID                                   NOT NULL NUMBER(38)
+ NAME                                      NOT NULL VARCHAR2(50)
+ BUILDING                                           VARCHAR2(50)
+ BUDGET                                             NUMBER(12,2)
+ UNIVERSITY_ID                                      NUMBER(38)
+
+iii) Alter the datatypes of any 3 columns.
+
+SQL> alter table department modify name varchar2(30);
+
+Table altered.
+
+SQL> alter table department modify building varchar2(30) not null;
+
+Table altered.
+
+iv) Increase the salary of each instructor in the Comp. sci. department by 10%.
+
+SQL> update instructor set salary = salary + salary * .1 where dept_id = (select dept_id from department where name = 'C
+omputer Science');
+
+2 rows updated.
+
+SQL> update instructor set salary = salary + salary * .1 where dept_id = (select dept_id from department where name = 'History');
+
+0 rows updated.
+
+vii) Give a 5% salary raise to those instructors who earn less than 70000.
+
+SQL> update instructor set salary = salary + salary * 5/100 where salary < 80000;
+
+3 rows updated.
+
+SQL> update instructor set salary = salary - salary * 5/100 where salary > 80000 and salary < 85000;
+
+5 rows updated.
+
+
+SQL> select * from course;
+
+COURSE_I
+--------
+TITLE
+--------------------------------------------------------------------------------
+   DEPT_ID    CREDITS
+---------- ----------
+CS-101
+Introduction to Programming
+         1          3
+
+CS-201
+Data Structures
+         1          4
+
+COURSE_I
+--------
+TITLE
+--------------------------------------------------------------------------------
+   DEPT_ID    CREDITS
+---------- ----------
+
+MATH-101
+Calculus I
+         2          4
+
+MATH-201
+Linear Algebra
+
+COURSE_I
+--------
+TITLE
+--------------------------------------------------------------------------------
+   DEPT_ID    CREDITS
+---------- ----------
+         2          3
+
+PHY-101
+Mechanics
+         3          4
+
+PHY-201
+
+COURSE_I
+--------
+TITLE
+--------------------------------------------------------------------------------
+   DEPT_ID    CREDITS
+---------- ----------
+Quantum Physics
+         3          4
+
+BIO-101
+Introduction to Biology
+         4          4
+
+
+7 rows selected.
+
+
+SQL> desc course;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_ID                                 NOT NULL VARCHAR2(8)
+ TITLE                                     NOT NULL VARCHAR2(100)
+ DEPT_ID                                            NUMBER(38)
+ CREDITS                                            NUMBER(38)
+
+viii) a. Create a new course "CS-001", titled "Weekly Seminar", with 1 credit.
+
+SQL> insert into course (course_id, title, dept_id, credits) values ( 'CS-001', 'Weekly Seminar', 1, 1);
+
+1 row created.
+
+SQL> select * from course;
+
+COURSE_I
+--------
+TITLE
+--------------------------------------------------------------------------------
+   DEPT_ID    CREDITS
+---------- ----------
+CS-101
+Introduction to Programming
+         1          3
+
+CS-201
+Data Structures
+         1          4
+
+COURSE_I
+--------
+TITLE
+--------------------------------------------------------------------------------
+   DEPT_ID    CREDITS
+---------- ----------
+
+MATH-101
+Calculus I
+         2          4
+
+MATH-201
+Linear Algebra
+
+COURSE_I
+--------
+TITLE
+--------------------------------------------------------------------------------
+   DEPT_ID    CREDITS
+---------- ----------
+         2          3
+
+PHY-101
+Mechanics
+         3          4
+
+PHY-201
+
+COURSE_I
+--------
+TITLE
+--------------------------------------------------------------------------------
+   DEPT_ID    CREDITS
+---------- ----------
+Quantum Physics
+         3          4
+
+BIO-101
+Introduction to Biology
+         4          4
+
+
+COURSE_I
+--------
+TITLE
+--------------------------------------------------------------------------------
+   DEPT_ID    CREDITS
+---------- ----------
+CS-001
+Weekly Seminar
+         1          1
+
+
+8 rows selected.
+
+SQL> set linesize 150
+SQL> desc course;
+ Name                                                                                Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ COURSE_ID                                                                           NOT NULL VARCHAR2(8)
+ TITLE                                                                               NOT NULL VARCHAR2(100)
+ DEPT_ID                                                                                      NUMBER(38)
+ CREDITS                                                                                      NUMBER(38)
+
+SQL> select * from course;
+
+COURSE_I TITLE                                                                                                   DEPT_ID    CREDITS
+-------- ---------------------------------------------------------------------------------------------------- ---------- ----------
+CS-101   Introduction to Programming                                                                                   1          3
+CS-201   Data Structures                                                                                               1          4
+MATH-101 Calculus I                                                                                                    2          4
+MATH-201 Linear Algebra                                                                                                2          3
+PHY-101  Mechanics                                                                                                     3          4
+PHY-201  Quantum Physics                                                                                               3          4
+BIO-101  Introduction to Biology                                                                                       4          4
+CS-001   Weekly Seminar                                                                                                1          1
+
+8 rows selected.
+
+viii) b. Create a section of this course in Fall 2017, with sec_id of 1, and with the location of this section not yet specified.
+
+SQL> insert into section (section_id, course_id, sec_id, semester, year) values (8, 'CS-001', 1, 'Fall', 2017);
+
+1 row created.
+
+
+
+x) Create any table, use sequence for insertion of the rows and drop the sequence.
+
+create table emp(emp_id int, name varchar2(20), mobile int);
+
+insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz', 8789541268);
+insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz1', 8789541268);
+insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz2', 8789541268);
+insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz3', 8789541268);
+insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz4', 8789541268);
+insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz5', 8789541268);
+insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz6', 8789541268);
+insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz7', 8789541268);
+insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz8', 8789541268);
+insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz9', 8789541268);
+
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+BIN$CLI+7NUUT8W8/su6S94KLQ==$0 TABLE
+BIN$DuSCpdozTnqpHcK93A2IdA==$0 TABLE
+BIN$ph9m5fWVRBubJlmu332OWw==$0 TABLE
+CLASSROOM                      TABLE
+COURSE                         TABLE
+DEPARTMENT                     TABLE
+INSTRUCTOR                     TABLE
+SECTION                        TABLE
+STUDENT                        TABLE
+ST_INFO                        TABLE
+TAKES                          TABLE
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+TEACHES                        TABLE
+TIME_SLOT                      TABLE
+UNIVERSITY                     TABLE
+
+14 rows selected.
+
+SQL> create sequence emp_seq start with 1 increment by 1;
+
+Sequence created.
+
+
+SQL> create table emp (emp_id int primary key, name varchar2(20), mobile int);
+
+Table created.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                    NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ MOBILE                                             NUMBER(38)
+
+SQL> insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz', 8789541268);
+
+1 row created.
+
+SQL> insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz1', 8789541268);
+
+1 row created.
+
+SQL> insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz2', 8789541268);
+
+1 row created.
+
+SQL> insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz3', 8789541268);
+
+1 row created.
+
+SQL> insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz4', 8789541268);
+
+1 row created.
+
+SQL> insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz5', 8789541268);
+
+1 row created.
+
+SQL> insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz6', 8789541268);
+
+1 row created.
+
+SQL> insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz7', 8789541268);
+
+1 row created.
+
+SQL> insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz8', 8789541268);
+
+1 row created.
+
+SQL> insert into emp (emp_id, name, mobile) values (emp_seq.nextval, 'xyz9', 8789541268);
+
+1 row created.
+
+SQL> select * from emp;
+
+    EMP_ID NAME                     MOBILE
+---------- -------------------- ----------
+         1 xyz                  8789541268
+         2 xyz1                 8789541268
+         3 xyz2                 8789541268
+         4 xyz3                 8789541268
+         5 xyz4                 8789541268
+         6 xyz5                 8789541268
+         7 xyz6                 8789541268
+         8 xyz7                 8789541268
+         9 xyz8                 8789541268
+        10 xyz9                 8789541268
+
+10 rows selected.
+
+SQL> select max(emp_id) from emp;
+
+MAX(EMP_ID)
+-----------
+         10
+
+SQL> drop sequence emp_seq;
+
+Sequence dropped.
+
+SQL> select * from emp;
+
+    EMP_ID NAME                     MOBILE
+---------- -------------------- ----------
+         1 xyz                  8789541268
+         2 xyz1                 8789541268
+         3 xyz2                 8789541268
+         4 xyz3                 8789541268
+         5 xyz4                 8789541268
+         6 xyz5                 8789541268
+         7 xyz6                 8789541268
+         8 xyz7                 8789541268
+         9 xyz8                 8789541268
+        10 xyz9                 8789541268
+
+10 rows selected.
+
+SQL> create sequence emp1 start with 11 increment by 1;
+
+Sequence created.
+
+SQL> insert into emp (emp_id, name, mobile) values (emp1.nextval, 'xyz10', 8789541268);
+
+1 row created.
+
+SQL> insert into emp (emp_id, name, mobile) values (emp1.nextval, 'xyz11', 8789541268);
+
+1 row created.
+
+SQL> select * from emp;
+
+    EMP_ID NAME                     MOBILE
+---------- -------------------- ----------
+         1 xyz                  8789541268
+         2 xyz1                 8789541268
+         3 xyz2                 8789541268
+         4 xyz3                 8789541268
+         5 xyz4                 8789541268
+         6 xyz5                 8789541268
+         7 xyz6                 8789541268
+         8 xyz7                 8789541268
+         9 xyz8                 8789541268
+        10 xyz9                 8789541268
+        11 xyz10                8789541268
+
+    EMP_ID NAME                     MOBILE
+---------- -------------------- ----------
+        12 xyz11                8789541268
+
+12 rows selected.
+
+SQL> insert into emp (emp_id, name, mobile) values (emp1.nextval, 'xyz12', 8789541268);
+
+1 row created.
+
+SQL> insert into emp (emp_id, name, mobile) values (emp1.nextval, 'xyz13', 8789541268);
+
+1 row created.
+
+xi) Rename the above table.
+
+SQL> rename emp to employee;
+
+Table renamed.
+
+SQL> alter table employee rename column mobile to mobile_no;
+
+Table altered.
+
+SQL> alter table employee add pincode int;
+
+Table altered.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                    NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ MOBILE_NO                                          NUMBER(38)
+ PINCODE                                            NUMBER(38)
+
+SQL> truncate table employee;
+
+Table truncated.
+
+SQL> select * from employee;
+
+no rows selected.
+
+SQL> alter table employee modify pincode number not null;
+
+Table altered.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                    NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ MOBILE_NO                                          NUMBER(38)
+ PINCODE                                   NOT NULL NUMBER
