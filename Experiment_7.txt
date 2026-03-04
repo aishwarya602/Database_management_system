@@ -1,0 +1,76 @@
+i) Sum of first 10 numbers using while loop. 
+
+SQL> create or replace procedure Sumof_10_Nos
+  2  as
+  3  num1 number := 1;
+  4  sum1 number := 0;
+  5  begin
+  6     while num1 <= 10 loop
+  7             sum1 := sum1 + num1;
+  8             num1 := num1 + 1;
+  9     end loop;
+ 10     DBMS_OUTPUT.PUT_LINE('Sum of first 10 numbers are:'||sum1);
+ 11  end;
+ 12  /
+
+Procedure created.
+
+SQL> exec Sumof_10_Nos
+Sum of first 10 numbers are:55
+
+PL/SQL procedure successfully completed.
+
+SQL> create or replace procedure Sumof_10_Nos2
+  2  as
+  3  num1 number;
+  4  sum1 number;
+  5  begin
+  6     num1:=10;
+  7     sum1 := 0;
+  8     while num1!=0 loop
+  9             sum1:=sum1+num1;
+ 10             num1:=num1+1;
+ 11             exit when num1=50;
+ 12     end loop;
+ 13     DBMS_OUTPUT.PUT_LINE('Sum of number:'||sum1);
+ 14  end;
+ 15  /
+
+Procedure created.
+
+SQL> exec Sumof_10_Nos2
+Sum of number:1180
+
+PL/SQL procedure successfully completed.
+
+SQL> create or replace procedure fib_series
+  2  as
+  3  num1 number := 0;
+  4  num2 number := 1;
+  5  sum1 number := 0;
+  6  begin
+  7     DBMS_OUTPUT.PUT_LINE('fibonacci series:'||num1);
+  8     DBMS_OUTPUT.PUT_LINE(num2);
+  9     while num1 <= 10 loop
+ 10             sum1 := num1 + num2;
+ 11             num1 := num2;
+ 12             num2 := sum1;
+ 13             DBMS_OUTPUT.PUT_LINE(sum1);
+ 14     end loop;
+ 15  end;
+ 16  /
+
+Procedure created.
+
+SQL> EXEC fib_series
+fibonacci series:0
+1
+1
+2
+3
+5
+8
+13
+21
+
+PL/SQL procedure successfully completed.
