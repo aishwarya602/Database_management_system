@@ -1,0 +1,76 @@
+a) Find the average salary of instructors in the Computer Science department.
+
+SQL> select d.name,avg(i.salary) as AVG_SAL from instructor i join department d on i.dept_id=d.dept_id where d.name='Computer Science' group by d.name;
+
+b) Find the average salary in each department.
+
+SQL> select d.name,avg(i.salary)as AVG_SAL from department d join instructor i on d.dept_id=i.dept_id group by d.name;
+
+c) What is the total salary of all teachers earning more than 30K?
+
+SQL> select sum(salary) as total_sal from instructor where salary>30000;
+
+d) List the number of students enrolled in each course
+
+SQL> select c.course_id,c.title, count(e.student_id) as enrolled_students from course c left join section s on c.course_id=s.course_id left join enrollment e on s.section_id=e.section_id group by c.course_id, c.title order by c.course_id;
+
+select * from department where name='Computer Science';
+select * from department where lower(name) like 'computer science';
+select * from department where lower(name) like '%sci%'; 
+select * from department where lower(name) like '%com%';
+
+select * from department where lower(name) like '%Computer Science%';-->search for characters before and after(have space) but left not have=>no rows selected 
+
+e) Find the names of all departments whose building name include the substring “Symbio”.
+
+f) Find the names of the departments whose names contain the string “sci” as a substring, regardless the case.
+g) Display the length of the name of all the students.
+
+SQL> select  length(name) from student;
+
+h) Retrieve total number of instructors.
+
+SQL> select count(name) from instructor;
+
+i) Add hiredate column in the instructor table. Insert 4 rows in the table. Display the names of instructor who are working for the past 5 years.
+
+SQL> alter table instructor add hiredate date;
+
+SQL> update instructor set hiredate = date '2021-06-09' where instructor_id=1;
+SQL> update instructor set hiredate = date '2024-02-22' where instructor_id=2;
+SQL> update instructor set hiredate = date '2025-11-07' where instructor_id=3;
+SQL> update instructor set hiredate = date '2021-01-22' where instructor_id=4;
+SQL> update instructor set hiredate = date '2021-05-02' where instructor_id=5;
+SQL> update instructor set hiredate = date '2025-11-12' where instructor_id=6;
+SQL> update instructor set hiredate = date '2026-01-22' where instructor_id=7;
+
+SQL> select * from instructor where hiredate > add_months(sysdate, -60);
+
+j) Display the list of instructor who have joined before 30th June 90 or after 31st Dec 90.
+
+SQL> select * from instructor where hiredate > date '2021-01-01' and hiredate < date '2022-06-30';
+
+k) Display name of those instructors who are going to retire 01-Jan-24. If the maximum job is period is 18 years.
+
+SQL> select * from instructor where hiredate > date '2021-01-01' and hiredate < add_months(sysdate, -36);
+
+l) Display those instructors whose salary contains at least 4 digits.
+
+SQL> select name, salary from instructor where salary >= 75000 and length(salary) >= 4;
+
+m) Print a list of instructors displaying ‘Less Salary’ if less than 60000 if exactly 60000 display as ‘Exact Salary’ and if greater than 60000 display ‘More Salary’.
+
+SQL> select name, case when salary < 60000 then 'less salary' when salary > 60000 then 'More salary' end as salary_category from instructor;
+
+n) Display names of all the instructors concatenated with their department names.
+
+SQL> select i.name || '=>' || d.name from instructor i join  department d on i.dept_id=d.dept_id;
+
+o) Retrieve distinct number of instructors.
+
+SQL> select d.name,count(i.name) from instructor i join department d on i.dept_id=d.dept_id group by d.name;
+
+p) Find the names of all instructors whose salary is greater than at least one instructor in the Biology department.
+
+SQL> select i.name,  i.salary from instructor i where i.salary>=(select i2.salary from instructor i2 join department d on i2.dept_id = d.dept_id where d.name='Biology');
+
