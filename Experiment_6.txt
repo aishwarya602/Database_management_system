@@ -1,0 +1,93 @@
+#hello world programs using procedures
+SQL> set serveroutput ON
+SQL> create procedure Hello as begin DBMS_OUTPUT.PUT_line ('Hello World');
+  2  END;
+  3  /
+
+Procedure created.
+
+#executing the program
+SQL> EXEC hello
+Hello World
+
+PL/SQL procedure successfully completed.
+
+SQL> execute hello
+Hello World
+
+PL/SQL procedure successfully completed.
+
+#add 'welcome to sit' after 'hello world'
+SQL> create or replace procedure hello as begin DBMS_OUTPUT.PUT_LINE('Hello World!, Welcome to SIT');
+  2  END;
+  3  /
+
+Procedure created.
+
+SQL> EXEC hello
+Hello World!, Welcome to SIT
+
+PL/SQL procedure successfully completed.
+
+#addition of two numbers
+create or replace procedure addition (
+num1 number := 5,
+num2 number := 10
+)
+as 
+begin
+DBMS_OUTPUT.PUT_LINE('Result: ' || num1+num2);
+END;
+/
+
+i) Swapping of two numbers without using third variable.
+
+#swap two numbers 
+SQL> create or replace procedure SwapNumbers(
+  2  num1 in out number,
+  3  num2 in out number
+  4  ) as
+  5  begin
+  6  num1 := num1+num2;
+  7  num2 := num1-num2;
+  8  num1 := num1-num2;
+  9  END;
+ 10  /
+
+Procedure created.
+
+SQL> DECLARE
+  2  a NUMBER := 10;
+  3  b NUMBER := 20;
+  4  BEGIN
+  5  SwapNumbers(a, b);
+  6  DBMS_OUTPUT.PUT_LINE('After Swap: a = ' || a || ', b = ' || b);
+  7  END;
+  8  /
+
+After Swap: a = 20, b = 10
+PL/SQL procedure successfully completed.
+
+
+ii) Largest amongst three numbers.
+
+CREATE OR REPLACE PROCEDURE FindLargest (
+    num1 IN NUMBER,
+    num2 IN NUMBER,
+    num3 IN NUMBER,
+    largest OUT NUMBER
+) AS
+BEGIN
+    IF num1 >= num2 AND num1 >= num3 THEN
+        largest := num1;
+    ELSIF num2 >= num1 AND num2 >= num3 THEN
+        largest := num2;
+    ELSE
+        largest := num3;
+    END IF;
+END;
+/
+
+Procedure created.
+
+
