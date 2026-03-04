@@ -1,0 +1,97 @@
+1. Display all employee names that starts with 'a' and are at least 3 characters in length.
+
+
+SQL> select first_name, last_name from emp where lower(first_name) like 'a%' and length (first_name) > 4;
+
+FIRST_NAME     LAST_NAME
+-------------- ----------------
+Alice          Jones
+
+
+2. Display departments having Dallas, New York and Chicago locations.
+
+
+SQL> select * from departments where lower(location) = 'dallas' or lower(location) = 'new york' or lower(location)
+ = 'chicago';
+
+    DEPTNO DEPT_NAME
+---------- --------------------------------------------------
+LOCATION
+--------------------------------------------------
+        10 ACCOUNTING
+New York
+
+        20 RESEARCH
+Dallas
+
+        30 SALES
+Chicago
+
+3. Display the names of employees who are working as clerk, salesman or analyst and drawing a salary more than 3000.
+
+select first_name, job, salary from emp where lower(job) IN ('clerk','salesman', 'analyst') and salary >= 3000;
+
+FIRST_NAME     JOB                      SALARY
+-------------- -------------------- ----------
+Alan           ANALYST                    3000
+
+4. Display the names of employees who are not working as managers.
+
+SQL> select first_name, job from emp where lower(job)!='manager';
+
+FIRST_NAME     JOB
+-------------- --------------------
+James          CLERK
+Scott          SALESMAN
+Adam           CLERK
+Alan           ANALYST
+Alice          CLERK
+George         CLERK
+Diana          SALESMAN
+Bob            CLERK
+
+8 rows selected.
+
+5. Display the name of emp who earns highest salary.
+
+SQL> select first_name, salary from emp where salary = (select max(salary) from emp);
+
+FIRST_NAME         SALARY
+-------------- ----------
+John                 5000
+
+
+6. Display the employee number and name of employee working as clerk and earning the highest salary among clerks.
+
+SQL> select emp_no, first_name, salary from emp where salary = (select max(salary) from emp where l
+ower(job) = 'clerk');
+
+    EMP_NO FIRST_NAME         SALARY
+---------- -------------- ----------
+      7566 James                2450
+
+
+7. Display the names of clerks who earn salary more than that of bob and lesser than that of james;
+
+SQL> select first_name, salary from emp where lower(job) = 'clerk' and salary > (select salary from
+ emp where lower(first_name) = 'bob') and salary < (select salary from emp where lower(first_name)
+= 'james');
+
+FIRST_NAME         SALARY
+-------------- ----------
+Adam                 1300
+Alice                1600
+George               1100
+
+
+8. Display the names of the employees who earn highest salary in their respective departments.
+
+SQL> select i.first_name, i.last_name, i.salary from emp i where i.salary IN(select max(i2.salary) from emp i2 where i2.deptno = i.deptno);
+
+FIRST_NAME     LAST_NAME            SALARY
+-------------- ---------------- ----------
+John           Smith                  5000
+Scott          Allen                  2975
+Alan           Walker                 3000
+George         Black                  1100
+
